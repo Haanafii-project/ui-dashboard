@@ -56,15 +56,22 @@ export function Sidebar() {
 
   const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({
     Dashboard: true,
-    Tasks: false,
+    Tasks: true,
     "E-Commerce": false,
     Finance: false,
   });
 
-  const toggleMenu = (title: string) => {
+  // const toggleMenu = (title: string) => {
+  //   setOpenMenus((prev) => ({
+  //     ...prev,
+  //     [title]: !prev[title],
+  //   }));
+  // };
+
+  const handleOpenChange = (title: string, nextState: boolean) => {
     setOpenMenus((prev) => ({
       ...prev,
-      [title]: !prev[title],
+      [title]: nextState,
     }));
   };
 
@@ -83,7 +90,9 @@ export function Sidebar() {
             <Collapsible
               key={group.title}
               open={isOpen}
-              onOpenChange={() => toggleMenu(group.title)}
+              onOpenChange={(nextState) =>
+                handleOpenChange(group.title, nextState)
+              }
               className="w-full"
             >
               <CollapsibleTrigger asChild>
