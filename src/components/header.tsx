@@ -10,7 +10,7 @@ import {
 
 export function Header() {
   return (
-    <header className="h-16 border-b px-6 flex items-center justify-between bg-white">
+    <header className="h-16 shrink-0 border-b px-6 flex items-center justify-between bg-white/80 backdrop-blur-sm sticky top-0 z-10">
       <h1 className="font-semibold text-lg text-neutral-800">Workspace Area</h1>
       <div className="flex items-center gap-4">
         <DropdownMenu>

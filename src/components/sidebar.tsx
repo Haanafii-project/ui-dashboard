@@ -18,7 +18,7 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 border-r bg-white min-h-screen flex flex-col p-4">
+    <aside className="w-64 shrink-0 border-r bg-white h-screen flex flex-col p-4">
       <div className="flex items-center gap-2 px-2 py-4 font-bold text-xl tracking-tight text-neutral-900">
         <span className="text-blue-600">Dev</span>Dashboard
       </div>
