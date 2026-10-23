@@ -9,6 +9,7 @@ import {
   CheckSquare,
   ShoppingCart,
   Wallet,
+  Home,
 } from "lucide-react";
 import {
   Collapsible,
@@ -19,15 +20,15 @@ import {
 const navigationGroups = [
   {
     title: "Dashboard",
-    icon: LayoutDashboard,
+    icon: Home,
     subItems: [{ label: "Overview", href: "/" }],
   },
   {
     title: "Tasks",
     icon: CheckSquare,
     subItems: [
-      { label: "All Tasks", href: "/tasks" },
-      { label: "Kanban Board", href: "/tasks/board" },
+      { label: "All Tasks", href: "/tasks/all_task" },
+      { label: "Kanban Board", href: "/tasks/kanban_board" },
       { label: "Projects", href: "/tasks/projects" },
     ],
   },
@@ -60,13 +61,6 @@ export function Sidebar() {
     "E-Commerce": false,
     Finance: false,
   });
-
-  // const toggleMenu = (title: string) => {
-  //   setOpenMenus((prev) => ({
-  //     ...prev,
-  //     [title]: !prev[title],
-  //   }));
-  // };
 
   const handleOpenChange = (title: string, nextState: boolean) => {
     setOpenMenus((prev) => ({
