@@ -1,3 +1,4 @@
 # TO DO !
 
-- [ ] Tidy up navigation
+- [x] Tidy up navigation
+- [ ] Create Login Page

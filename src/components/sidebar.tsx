@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ChevronDown,
-  LayoutDashboard,
   CheckSquare,
   ShoppingCart,
   Wallet,
@@ -21,7 +20,7 @@ const navigationGroups = [
   {
     title: "Dashboard",
     icon: Home,
-    subItems: [{ label: "Overview", href: "/" }],
+    subItems: [{ label: "Home", href: "/dashboard/home" }],
   },
   {
     title: "Tasks",
