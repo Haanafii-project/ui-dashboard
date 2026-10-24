@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 export function Header() {
   return (
@@ -27,7 +28,7 @@ export function Header() {
             <DropdownMenuItem>Pengaturan</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-600 focus:text-red-600">
-              Keluar
+              <Link href="/login">Keluar</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

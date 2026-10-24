@@ -1,4 +1,5 @@
 # TO DO !
 
 - [x] Tidy up navigation
-- [ ] Create Login Page
+- [x] Create Login Page
+- [ ] Tidy up auth logic
