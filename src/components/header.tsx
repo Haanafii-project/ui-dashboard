@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -7,9 +9,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+import { deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function Header() {
+  const router = useRouter();
+
+  const logout = () => {
+    deleteCookie("auth_session");
+    toast.info("Anda telah keluar dari sistem.");
+    router.push("/login");
+    router.refresh();
+  };
+
   return (
     <header className="h-16 shrink-0 border-b px-6 flex items-center justify-between bg-white/80 backdrop-blur-sm sticky top-0 z-10">
       <h1 className="font-semibold text-lg text-neutral-800">Workspace Area</h1>
@@ -27,8 +40,11 @@ export function Header() {
             <DropdownMenuItem>Profil</DropdownMenuItem>
             <DropdownMenuItem>Pengaturan</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-600 focus:text-red-600">
-              <Link href="/login">Keluar</Link>
+            <DropdownMenuItem
+              onClick={logout}
+              className="text-red-600 focus:text-red-600 cursor-pointer"
+            >
+              Keluar
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

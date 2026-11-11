@@ -1,19 +1,34 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator, } from "@/components/ui/field";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { DUMMY_USER } from "@/data/dummy";
+import { setCookie } from "cookies-next";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTarget = searchParams.get("from") || "/dashboard/home";
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -24,28 +39,36 @@ export function LoginForm({
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     setTimeout(() => {
-      if (email === "admin@example.com" && password === "admin123") {
-        toast.success("Login Berhasil", {
-          description: "Mengarahkan ke dashboard...",
-        });
-        router.push("/dashboard/home");
-      } else if (password.length < 6) {
+      if (email !== DUMMY_USER.email || password !== DUMMY_USER.password) {
         toast.error("Login Gagal", {
-          description: "Password minimal 6 karakter.",
+          description: "Email atau Password salah!",
         });
         setIsLoading(false);
-      } else {
-        toast.success("Login Berhasil", {
-          description: "Selamat datang kembali!",
-        });
-        router.push("/dashboard/home");
+        return;
       }
-    }, 1000);
+
+      // Simpan cookie
+      setCookie(
+        "auth_session",
+        JSON.stringify({ email: DUMMY_USER.email, role: DUMMY_USER.role }),
+        {
+          maxAge: 60 * 60 * 24,
+          path: "/",
+        },
+      );
+
+      toast.success("Login Berhasil", {
+        description: `Selamat datang kembali, ${DUMMY_USER.name}!`,
+      });
+
+      // Gunakan window.location agar middleware membaca cookie baru secara segar
+      window.location.href = redirectTarget;
+    }, 800);
   };
 
   return (
@@ -58,7 +81,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={submit}>
             <FieldGroup>
               <Field>
                 <div className="grid grid-cols-2 gap-2">

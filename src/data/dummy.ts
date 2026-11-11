@@ -68,3 +68,10 @@ export const initialEcommerce = {
     },
   ],
 };
+
+export const DUMMY_USER = {
+  email: "admin@example.com",
+  password: "admin123",
+  name: "Administrator",
+  role: "superadmin",
+};
